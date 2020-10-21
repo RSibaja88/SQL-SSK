@@ -8,4 +8,7 @@ module.exports = {
     },
     useNullAsDefault: true,
   },
+  migrations: {
+    directory: "./migrations",
+  },
 };

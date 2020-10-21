@@ -18,6 +18,7 @@ server.get("/", (req, res) => {
     `<div>
       <h1>Welcome to Sevens Seas Zone and Zip Database API!</h1>
       <h2>Data displayed will be RAW JSON formatting</h2>
+      <h2>This is a server side rendering, clients will not see this page</h2>
       <h3>To view source code for this DB: https://github.com/RSibaja88/SQL-SSK</h3>
       <p>
         To fetch information from the API, add the following to the end of the
@@ -25,6 +26,7 @@ server.get("/", (req, res) => {
       </p>
       <p>"/api/zips" - This will show you all of the zipcodes included in the DB</p>
       <p>"/api/zips/:zipcode" - (IE: /api/zips/92106) This will show you the data attached to a specific zipcode</p>
+      <p>"/api/zips/id/:id" - (IE: /api/zips/id/4) This will fetch a zipcode entry by its respective "id: " number</p>
       <p>"/api/zips/zone/:zone" - (IE: /api/zips/zone/east)This will show you all of the zipcodes in that particular zone</p>
       <p>"/api/:zone" - (IE: /api/east)This will show you the schedule for that particular zone. Use all lowercase for zone in URL</p>
       <ul><p>Other API functions created:</p>
