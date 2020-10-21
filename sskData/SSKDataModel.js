@@ -11,22 +11,20 @@ async function addZip(zip) {
   return id;
 }
 
-//GET SPECIFIC ZONES DATA
-function findWest() {
-  return db("west");
-}
-
-function findEast() {
-  return db("east");
-}
-
-function findSouth() {
-  return db("south");
+//POST ZONE
+async function addZone(zone) {
+  const [id] = await db("zones").insert(zone);
+  return id;
 }
 
 //GET ALL ZIPCODES
 function findZips() {
   return db("zips");
+}
+
+//GET ALL ZONES
+function findZones() {
+  return db("zones");
 }
 
 //GET ZIP BY
@@ -43,17 +41,13 @@ function findByZone(zone) {
   return db("zips").where({ zone });
 }
 
-//GET ZONE BY ID
-function eastByID(id) {
-  return db("east").where({ id }).first();
+//GET ZONE BY (ZONE & ID)
+function findZoneByZone(zone) {
+  return db("zones").where({ zone }).first();
 }
 
-function westByID(id) {
-  return db("west").where({ id }).first();
-}
-
-function southByID(id) {
-  return db("south").where({ id }).first();
+function findZoneByID(id) {
+  return db("zones").where({ id }).first();
 }
 
 //UPDATE Existing Zipcode
@@ -66,33 +60,23 @@ async function updateZip(id, changes) {
     });
 }
 
-//UPDATE Existing East Schedule
-async function updateEast(id, changes) {
-  return await db("east")
-    .where({ id })
+//UPDATES ALL ZIPCODES WITHIN A ZONE
+async function updateZipZone(zone, changes) {
+  return await db("zips")
+    .where({ zone })
     .update(changes)
     .then(() => {
-      return eastByID(id);
+      return findByZone(zone);
     });
 }
 
-//UPDATE Existing West Schedule
-async function updateWest(id, changes) {
-  return await db("west")
+//UPDATE Existing Zone Schedule
+async function updateZone(id, changes) {
+  return await db("zones")
     .where({ id })
     .update(changes)
     .then(() => {
-      return westByID(id);
-    });
-}
-
-//UPDATE Existing South Schedule
-async function updateSouth(id, changes) {
-  return await db("south")
-    .where({ id })
-    .update(changes)
-    .then(() => {
-      return southByID(id);
+      return findZoneByID(id);
     });
 }
 
@@ -101,21 +85,24 @@ function removeZip(zipcode) {
   return db("zips").where({ zipcode }).del();
 }
 
+//DELETE ZONE
+function removeZone(zone) {
+  return db("zones").where({ zone }).del();
+}
+
 module.exports = {
   addZip,
-  findWest,
-  findEast,
-  findSouth,
+  addZone,
+  findZones,
   findZips,
   findByZip,
   findByZone,
+  findZoneByZone,
   findByID,
-  eastByID,
-  westByID,
-  southByID,
+  findZoneByID,
   removeZip,
+  removeZone,
   updateZip,
-  updateEast,
-  updateWest,
-  updateSouth,
+  updateZone,
+  updateZipZone,
 };

@@ -1,26 +1,6 @@
 exports.up = function (knex) {
   return knex.schema
-    .createTable("west", (tbl) => {
-      tbl.increments();
-      tbl.string("zone", 10).notNullable();
-      tbl.string("day1", 128);
-      tbl.string("day2", 128);
-      tbl.string("day3", 128);
-      tbl.string("day4", 128);
-      tbl.string("day5", 128);
-      tbl.string("day6", 128);
-    })
-    .createTable("east", (tbl) => {
-      tbl.increments();
-      tbl.string("zone", 10).notNullable();
-      tbl.string("day1", 128);
-      tbl.string("day2", 128);
-      tbl.string("day3", 128);
-      tbl.string("day4", 128);
-      tbl.string("day5", 128);
-      tbl.string("day6", 128);
-    })
-    .createTable("south", (tbl) => {
+    .createTable("zones", (tbl) => {
       tbl.increments();
       tbl.string("zone", 10).notNullable();
       tbl.string("day1", 128);
@@ -38,9 +18,5 @@ exports.up = function (knex) {
 };
 
 exports.down = function (knex) {
-  return knex.schema
-    .dropTableIfExists("zips")
-    .dropTableIfExists("west")
-    .dropTableIfExists("east")
-    .dropTableIfExists("south");
+  return knex.schema.dropTableIfExists("zips").dropTableIfExists("zones");
 };
